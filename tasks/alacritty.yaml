@@ -1,4 +1,5 @@
 - name: Install dependancies
+  become: true
   apt:
     name:
       [
