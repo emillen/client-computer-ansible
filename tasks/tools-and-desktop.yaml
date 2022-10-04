@@ -30,8 +30,9 @@
     gem install tmuxinator
 
 - name: Install rustup
+  become: true
   shell: |
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash
+    snap install rustup
 
 - name: Update rust tool chain
   shell: |
