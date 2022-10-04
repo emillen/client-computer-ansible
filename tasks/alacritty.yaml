@@ -19,6 +19,8 @@
 - name: Build and install Alacritty
   shell: |
     cd /tmp/alacritty
+    rustup override set stable
+    rustup update stable
     cargo build --release
 
 - name: Install Alacritty
