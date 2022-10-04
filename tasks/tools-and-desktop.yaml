@@ -32,7 +32,7 @@
 - name: Install rustup
   become: true
   shell: |
-    snap install rustup
+    snap install rustup --classic
 
 - name: Update rust tool chain
   shell: |
