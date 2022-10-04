@@ -5,6 +5,7 @@
     remote_src: yes
 
 - name: Copy the neovim files to the correct location
+  become: true
   ansible.builtin.copy:
     src: /tmp/nvim-linux64/
     dest: /usr/local/
