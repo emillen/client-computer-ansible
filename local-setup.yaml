@@ -9,6 +9,6 @@
 
   tasks:
     - include: tasks/tools-and-desktop.yaml
-    - include: tasks/neovim.yaml
+      #- include: tasks/neovim.yaml
     - include: tasks/alacritty.yaml
     - include: tasks/my-dotfiles.yaml
