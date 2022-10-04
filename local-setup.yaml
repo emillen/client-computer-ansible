@@ -1,0 +1,14 @@
+- hosts: localhost
+  pre_tasks:
+    - name: Update Apt
+      become: true
+      apt:
+        force_apt_get: true
+        update_cache: true
+        state: present
+
+  tasks:
+    - include: tasks/tools-and-desktop.yaml
+    - include: tasks/neovim.yaml
+    - include: tasks/alacritty.yaml
+    - include: tasks/my-dotfiles.yaml

@@ -1,0 +1,40 @@
+- name: Install packages i need to work
+  become: true
+  apt:
+    name:
+      [
+        "git",
+        "i3-wm",
+        "i3lock",
+        "i3lock-fancy",
+        "rofi",
+        "tmux",
+        "fzf",
+        "bat",
+        "ripgrep",
+        "xclip",
+        "gem",
+        "tldr",
+        "node",
+        "npm",
+        "golang",
+      ]
+
+- name: Install tmuxinator
+  become: true
+  shell: gem install tmuxinator
+
+- name: Install rustup
+  shell: |
+    set -o pipefail
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+- name: Update rust tool chain
+  shell: |
+    rustup override set stable
+    rustup update stable
+
+- name: install firefox
+  become: true
+  shell: |
+    snap install firefox

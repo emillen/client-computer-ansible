@@ -1,0 +1,33 @@
+- name: Install dependancies
+  ansible.builtin.apt:
+    apt:
+      name:
+        [
+          "cmake",
+          "pkg-config",
+          "libfreetype6-dev",
+          "libfontconfig1-dev",
+          "libxcb-xfixes0-dev",
+          "libxkbcommon-dev",
+          "python3",
+        ]
+- name: Git clone the alacritty repo
+  ansible.builtin.git:
+    repo: https://github.com/alacritty/alacritty.git
+    dest: /tmp/alacritty
+
+- name: Build and install Alacritty
+  shell: |
+    cd /tmp/alacritty
+    cargo build --release
+
+- name: Install Alacritty
+  become: true
+  shell: |
+    cd /tmp/alacritty
+    cp target/release/alacritty /usr/local/bin
+
+- name: Remove the tmp folder
+  file:
+    state: absent
+    path: /tmp/alacritty/

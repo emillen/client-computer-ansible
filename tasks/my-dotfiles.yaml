@@ -1,0 +1,4 @@
+- name: Clone my dotfiles
+  ansible.builtin.git:
+    repo: https://github.com/emillen/Dotfiles.git
+    dest: "{{ lookup('env', 'HOME') }}"
