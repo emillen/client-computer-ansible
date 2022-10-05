@@ -1,4 +1,7 @@
-- name: Clone my dotfiles
-  ansible.builtin.git:
-    repo: https://github.com/emillen/Dotfiles.git
-    dest: "{{ lookup('env', 'HOME') }}"
+- name: get my Dotfiles
+  shell: |
+    cd 
+    git init
+    git remote add origin https://github.com/emillen/Dotfiles.git
+    git fetch --all
+    git reset --hard origin/main
