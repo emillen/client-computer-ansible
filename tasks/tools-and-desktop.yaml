@@ -1,4 +1,4 @@
-- name: Install packages i need to work
+- name: Install packages through apt
   become: true
   apt:
     name:
@@ -15,6 +15,7 @@
         "xbindkeys",
         "tmux",
         "fzf",
+        "exa",
         "bat",
         "ripgrep",
         "xclip",
@@ -24,23 +25,15 @@
         "golang",
       ]
 
-- name: Install tmuxinator
-  become: true
-  shell: |
-    snap install ruby --classic
-    gem install tmuxinator
-
-- name: Install rustup
-  become: true
-  shell: |
-    snap install rustup --classic
-
-- name: Update rust tool chain
-  shell: |
-    rustup override set stable
-    rustup update stable
-
-- name: install firefox
+- name: install things through snap
   become: true
   shell: |
     snap install firefox
+    snap install ruby --classic
+    snap install kubectl --classic
+    snap install rustup --classic
+
+- name: Install tmuxinator
+  become: true
+  shell: |
+    gem install tmuxinator
