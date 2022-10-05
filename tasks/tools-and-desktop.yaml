@@ -34,6 +34,11 @@
     snap install kubectl --classic
     snap install rustup --classic
 
+- name: Install the rust thingies
+  shell: |
+    rustup install stable
+    rustup default stable
+
 - name: Install tmuxinator
   become: true
   shell: |
