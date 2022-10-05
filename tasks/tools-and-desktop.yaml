@@ -9,6 +9,7 @@
         "i3lock-fancy",
         "rofi",
         "polybar",
+        "dunst",
         "xdotool",
         "blueman",
         "xbindkeys",
