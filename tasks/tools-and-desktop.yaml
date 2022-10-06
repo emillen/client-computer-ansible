@@ -45,3 +45,9 @@
   git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
+
+- name: update nodejs
+  shell: |
+    sudo npm install -g n
+    sudo n stable
+    sudo npm install -g npm@latest
