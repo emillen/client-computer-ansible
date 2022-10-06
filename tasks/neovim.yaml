@@ -4,16 +4,10 @@
     dest: /tmp/
     remote_src: yes
 
-- name: Copy the neovim files to the correct location
+- name: Install neovim from deb pkg
   become: true
-  ansible.builtin.copy:
-    src: /tmp/nvim-linux64/
-    dest: /usr/local/
-
-- name: Make neovim executable
-  become: true
-  shell: |
-    chmod +x /usr/local/bin/nvim
+  apt:
+    deb: https://github.com/neovim/neovim/releases/download/v0.8.0/nvim-linux64.deb
 
 - name: Install vim-plug
   shell: |
