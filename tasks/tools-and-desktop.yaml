@@ -43,5 +43,5 @@
 
 - name: download tmux plugin manager
   git:
-    clone: https://github.com/tmux-plugins/tpm
+    repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
