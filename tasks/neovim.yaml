@@ -11,8 +11,9 @@
     dest: /usr/local/
 
 - name: Make neovim executable
+  become: true
   shell: |
-    chmod +x /usr/local/bin/neovim
+    chmod +x /usr/local/bin/nvim
 
 - name: Install vim-plug
   shell: |
