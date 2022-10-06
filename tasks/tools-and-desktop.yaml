@@ -40,3 +40,8 @@
   shell: |
     rustup install stable
     rustup default stable
+
+- name: download tmux plugin manager
+  git:
+    clone: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
