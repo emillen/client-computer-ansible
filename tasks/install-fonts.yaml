@@ -1,7 +1,13 @@
+- name: ensure fonts folder exists
+  file:
+    path: ~/.fonts
+    state: directory
+
 - name: install jetbrains mono
-  shell: |
-    cd /tmp
-    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/JetBrainsMono.zip
-    mkdir -p ~/.fonts
-    unzip JetBrainsMono.zip -d ~/.fonts
-    fc-cache -fv
+  unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/JetBrainsMono.zip
+    dest: ~/.fonts
+    remote_src: true
+
+- name: Reset font cache
+  shell: fc-cache -fv

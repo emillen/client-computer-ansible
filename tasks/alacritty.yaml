@@ -25,9 +25,9 @@
 
 - name: Install Alacritty
   become: true
-  shell: |
-    cd /tmp/alacritty
-    cp target/release/alacritty /usr/local/bin
+  copy:
+    src: /tmp/alacritty/target/release/alacritty
+    dest: /usr/local/bin
 
 - name: Remove the tmp folder
   file:
