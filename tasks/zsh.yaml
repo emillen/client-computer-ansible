@@ -12,7 +12,3 @@
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-
-- name: set zsh to default shell
-  shell: |
-    chsh -s $(which zsh)
