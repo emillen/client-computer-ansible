@@ -12,4 +12,5 @@
     - include: tasks/install-fonts.yaml
     - include: tasks/neovim.yaml
     - include: tasks/alacritty.yaml
+    - include: tasks/zsh.yaml
     - include: tasks/my-dotfiles.yaml

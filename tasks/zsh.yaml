@@ -1,0 +1,18 @@
+- name: Install zsh
+  become: true
+  apt:
+    name: zsh
+
+- name: Install oh-my-zsh
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: ~/.oh-my-zsh
+
+- name: install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+- name: set zsh to default shell
+  shell: |
+    chsh -s $(which zsh)
