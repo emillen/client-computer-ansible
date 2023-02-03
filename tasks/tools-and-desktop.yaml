@@ -37,6 +37,7 @@
         "redshift",
         "awscli",
         "fish",
+        "fd-find",
       ]
 
 - name: install things through snap
