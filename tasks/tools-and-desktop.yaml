@@ -1,6 +1,13 @@
+- name: Add fish repo
+  become: true
+  apt_repository:
+    repo: ppa:fish-shell/release-3
+    present: true
+
 - name: Install packages through apt
   become: true
   apt:
+    update_cache: true
     name:
       [
         "git",
@@ -29,6 +36,7 @@
         "golang",
         "redshift",
         "awscli",
+        "fish",
       ]
 
 - name: install things through snap
