@@ -26,6 +26,7 @@
         "tmux",
         "tmuxinator",
         "fzf",
+        "zoxide",
         "exa",
         "bat",
         "ripgrep",
