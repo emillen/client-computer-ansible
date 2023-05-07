@@ -28,6 +28,7 @@
   copy:
     src: /tmp/alacritty/target/release/alacritty
     dest: /usr/local/bin
+    mode: 751
 
 - name: Remove the tmp folder
   file:
