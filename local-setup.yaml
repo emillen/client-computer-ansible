@@ -9,8 +9,22 @@
 
   tasks:
     - include: tasks/tools-and-desktop.yaml
+      tags:
+        - tools
+        - desktop
     - include: tasks/install-fonts.yaml
+      tags:
+        - fonts
     - include: tasks/neovim.yaml
+      tags:
+        - neovim
+        - nvim
     - include: tasks/alacritty.yaml
+      tags:
+        - alacritty
     - include: tasks/zsh.yaml
+      tags:
+        - zsh
     - include: tasks/my-dotfiles.yaml
+      tags:
+        - dotfiles

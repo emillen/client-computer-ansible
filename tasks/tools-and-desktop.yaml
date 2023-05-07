@@ -53,6 +53,8 @@
   shell: |
     rustup install stable
     rustup default stable
+  tags:
+    - alacritty
 
 - name: download tmux plugin manager
   git:
