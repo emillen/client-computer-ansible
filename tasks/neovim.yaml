@@ -1,22 +1,28 @@
 - name: Cleanup old neovim installation
-  file:
+  ansible.builtin.file:
     path: ~/.local/share/nvim
     state: absent
 
 - name: Download neovim
-  unarchive:
+  become: true
+  ansible.builtin.unarchive:
     src: https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
     dest: /tmp
-    remote_src: yes
+    remote_src: true
 
 - name: Copy files to correct location
   become: true
-  synchronize:
+  ansible.builtin.synchronize:
     src: /tmp/nvim-linux64/
-    dest: /usr/
+    dest: /usr
+    archive: false
+    group: 0
+    owner: 0
+    recursive: true
+    perms: true
 
 - name: Cleanup
   become: true
-  file:
+  ansible.builtin.file:
     path: /tmp/nvim-linux64
     state: absent
