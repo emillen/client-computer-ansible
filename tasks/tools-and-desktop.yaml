@@ -2,7 +2,7 @@
   become: true
   apt_repository:
     repo: ppa:fish-shell/release-3
-    present: true
+    state: present
 
 - name: Install packages through apt
   become: true
