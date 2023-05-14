@@ -16,7 +16,7 @@
         mode: u=rw,g=r,o=r
     - name: Add repo
       ansible.builtin.apt_repository:
-        repo: deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/
+        repo: deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /
         state: present
 
 - name: Install packages through apt
