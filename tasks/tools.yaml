@@ -54,9 +54,10 @@
     dest: ~/.tmux/plugins/tpm
 
 - name: Update nodejs
+  become: true
   ansible.builtin.shell: |
-    sudo npm install -g n
-    sudo n stable
-    sudo npm install -g npm@latest
+    npm install -g n
+    n stable
+    npm install -g npm@latest
   register: result
   changed_when: result.rc == 0
