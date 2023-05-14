@@ -24,7 +24,6 @@
     cargo build --release
   register: command_results
   changed_when: command_results.rc == 0
-  failed_when: "'error' in command_results.stderr"
 
 - name: Install Alacritty
   become: true
