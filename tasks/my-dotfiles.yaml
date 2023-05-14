@@ -3,7 +3,7 @@
     repo: https://github.com/emillen/Dotfiles.git
     dest: ~/Dotfiles
 
-- name: Get my Dotfiles
+- name: Install my Dotfiles
   ansible.builtin.shell: |
     cd ~/Dotfiles
     stow -R --adopt .
