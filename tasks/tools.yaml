@@ -41,6 +41,7 @@
         "fish",
         "fd-find",
         "stow",
+        "rsync",
       ]
 
 - name: Install things through snap
