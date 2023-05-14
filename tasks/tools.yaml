@@ -1,71 +1,62 @@
 - name: Add fish repo
   become: true
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: ppa:fish-shell/release-3
     state: present
 
 - name: Install packages through apt
   become: true
-  tags:
-    - dotfiles
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     name:
       [
         "git",
-        "i3-wm",
-        "i3lock",
-        "i3lock-fancy",
-        "rofi",
-        "polybar",
-        "dunst",
-        "arandr",
-        "autorandr",
-        "xdotool",
-        "blueman",
-        "xbindkeys",
         "curl",
         "tmux",
-        "tmuxinator",
         "fzf",
         "zoxide",
         "exa",
         "bat",
         "ripgrep",
-        "xclip",
         "tldr",
         "nodejs",
         "npm",
         "golang",
-        "redshift",
         "awscli",
         "fish",
         "fd-find",
         "stow",
       ]
 
-- name: install things through snap
+- name: Install things through snap
   become: true
-  shell: |
+  ansible.builtin.shell: |
     snap install firefox
     snap install ruby --classic
     snap install kubectl --classic
     snap install rustup --classic
 
+  register: result
+  changed_when: result.rc == 0
+
 - name: Install the rust thingies
-  shell: |
-    rustup install stable
-    rustup default stable
   tags:
     - alacritty
+  ansible.builtin.shell: |
+    rustup install stable
+    rustup default stable
+  register: result
+  changed_when: result.rc == 0
 
-- name: download tmux plugin manager
-  git:
+- name: Download tmux plugin manager
+  ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
 
-- name: update nodejs
-  shell: |
+- name: Update nodejs
+  ansible.builtin.shell: |
     sudo npm install -g n
     sudo n stable
     sudo npm install -g npm@latest
+  register: result
+  changed_when: result.rc == 0

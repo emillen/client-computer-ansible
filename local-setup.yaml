@@ -8,13 +8,19 @@
         state: present
 
   tasks:
-    - include: tasks/tools-and-desktop.yaml
+    - include: tasks/tools.yaml
       tags:
         - tools
+        - dotfiles
+    - include: tasks/gui.yaml
+      tags:
+        - gui
         - desktop
     - include: tasks/install-fonts.yaml
       tags:
         - fonts
+        - gui
+        - desktop
     - include: tasks/neovim.yaml
       tags:
         - neovim
@@ -22,9 +28,6 @@
     - include: tasks/alacritty.yaml
       tags:
         - alacritty
-    - include: tasks/zsh.yaml
-      tags:
-        - zsh
     - include: tasks/my-dotfiles.yaml
       tags:
         - dotfiles

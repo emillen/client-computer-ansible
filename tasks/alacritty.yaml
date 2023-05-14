@@ -1,6 +1,6 @@
 - name: Install dependancies
   become: true
-  apt:
+  ansible.builtin.apt:
     name:
       [
         "cmake",
@@ -13,24 +13,27 @@
       ]
 - name: Git clone the alacritty repo
   ansible.builtin.git:
-    repo: https://github.com/alacritty/alacritty.git
     dest: /tmp/alacritty
+    repo: https://github.com/alacritty/alacritty.git
 
 - name: Build and install Alacritty
-  shell: |
+  ansible.builtin.shell: |
     cd /tmp/alacritty
     rustup override set stable
     rustup update stable
     cargo build --release
+  register: command_results
+  changed_when: command_results.rc == 0
+  failed_when: "'error' in command_results.stderr"
 
 - name: Install Alacritty
   become: true
-  copy:
+  ansible.builtin.copy:
     src: /tmp/alacritty/target/release/alacritty
     dest: /usr/local/bin
-    mode: 751
+    mode: "751"
 
 - name: Remove the tmp folder
-  file:
+  ansible.builtin.file:
     state: absent
     path: /tmp/alacritty/

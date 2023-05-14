@@ -1,13 +1,16 @@
-- name: ensure fonts folder exists
-  file:
+- name: Ensure fonts folder exists
+  ansible.builtin.file:
     path: ~/.fonts
     state: directory
+    mode: "775"
 
-- name: install jetbrains mono
-  unarchive:
+- name: Install jetbrains mono
+  ansible.builtin.unarchive:
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/JetBrainsMono.zip
     dest: ~/.fonts
     remote_src: true
 
 - name: Reset font cache
-  shell: fc-cache -fv
+  ansible.builtin.command: fc-cache -fv
+  register: result
+  changed_when: result.rc == 0

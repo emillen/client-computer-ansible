@@ -1,0 +1,21 @@
+- name: Install gui
+  become: true
+  tags:
+    - gui
+  ansible.builtin.apt:
+    name:
+      [
+        "i3-wm",
+        "i3lock",
+        "i3lock-fancy",
+        "rofi",
+        "polybar",
+        "dunst",
+        "arandr",
+        "autorandr",
+        "xdotool",
+        "blueman",
+        "xbindkeys",
+        "redshift",
+        "xclip",
+      ]
