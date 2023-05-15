@@ -1,7 +1,5 @@
 - name: Install gui
   become: true
-  tags:
-    - gui
   ansible.builtin.apt:
     name:
       [
@@ -19,3 +17,29 @@
         "redshift",
         "xclip",
       ]
+
+- name: Download greenclip
+  become: true
+  ansible.builtin.get_url:
+    url: https://github.com/erebe/greenclip/releases/download/v4.2/greenclip
+    dest: /usr/local/bin/
+    mode: u=rwx,g=rx,o=rx
+
+- name: "Install fonts"
+  block:
+    - name: Ensure fonts folder exists
+      ansible.builtin.file:
+        path: ~/.fonts
+        state: directory
+        mode: "775"
+
+    - name: Install jetbrains mono
+      ansible.builtin.unarchive:
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/JetBrainsMono.zip
+        dest: ~/.fonts
+        remote_src: true
+
+    - name: Reset font cache
+      ansible.builtin.command: fc-cache -fv
+      register: result
+      changed_when: result.rc == 0

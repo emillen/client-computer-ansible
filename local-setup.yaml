@@ -16,11 +16,6 @@
       tags:
         - gui
         - desktop
-    - include: tasks/install-fonts.yaml
-      tags:
-        - fonts
-        - gui
-        - desktop
     - include: tasks/neovim.yaml
       tags:
         - neovim

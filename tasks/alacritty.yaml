@@ -11,6 +11,7 @@
         "libxkbcommon-dev",
         "python3",
       ]
+
 - name: Git clone the alacritty repo
   ansible.builtin.git:
     dest: /tmp/alacritty
