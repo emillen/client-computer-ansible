@@ -1,8 +1,11 @@
 - hosts: localhost
+  vars:
+    nvim_version: stable
+
   pre_tasks:
     - name: Update Apt
       become: true
-      apt:
+      ansible.builtin.apt:
         force_apt_get: true
         update_cache: true
         state: present
@@ -12,17 +15,21 @@
       tags:
         - tools
         - dotfiles
+
     - include: tasks/gui.yaml
       tags:
         - gui
         - desktop
+
     - include: tasks/neovim.yaml
       tags:
         - neovim
         - nvim
+
     - include: tasks/alacritty.yaml
       tags:
         - alacritty
+
     - include: tasks/my-dotfiles.yaml
       tags:
         - dotfiles
