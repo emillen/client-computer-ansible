@@ -55,7 +55,6 @@
         snap install firefox
         snap install ruby --classic
         snap install kubectl --classic
-        snap install rustup --classic
       when: ansible_distribution == 'Ubuntu'
       register: result
       changed_when: result.rc == 0
@@ -66,21 +65,6 @@
         update_cache: true
         name: [kubernetes-client, ruby]
       when: ansible_distribution == "Debian"
-
-    - name: Install rustup from source
-      ansible.builtin.get_url:
-        url: https://sh.rustup.rs
-        dest: /tmp/rustup.sh
-        mode: "+x"
-      tags: [alacritty]
-      when: ansible_distribution == "Debian"
-
-    - name: Install rustup
-      ansible.builtin.command: /tmp/rustup.sh -y
-      tags: [alacritty]
-      when: ansible_distribution == "Debian"
-      register: result
-      changed_when: result.rc == 0
 
 # For fedora etc
 - name: Install tools on dnf distros
@@ -119,16 +103,32 @@
   register: result
   changed_when: result.rc == 0
 
-- name: Install the rust thingies
-  tags:
-    - alacritty
-  environment:
-    PATH: ~/.cargo/bin:{{ ansible_env.PATH }}
-  ansible.builtin.shell: |
-    rustup install stable
-    rustup default stable
-  register: result
-  changed_when: result.rc == 0
+- name: Get rust
+  block:
+    - name: Install rustup from source
+      ansible.builtin.get_url:
+        url: https://sh.rustup.rs
+        dest: /tmp/rustup.sh
+        mode: "+x"
+      tags: [alacritty]
+      when: ansible_distribution == "Debian"
+
+    - name: Install rustup
+      ansible.builtin.command: /tmp/rustup.sh -y
+      tags: [alacritty]
+      register: result
+      changed_when: result.rc == 0
+
+    - name: Install the rust thingies
+      tags:
+        - alacritty
+      environment:
+        PATH: ~/.cargo/bin:{{ ansible_env.PATH }}
+      ansible.builtin.shell: |
+        rustup install stable
+        rustup default stable
+      register: result
+      changed_when: result.rc == 0
 
 - name: Download tmux plugin manager
   ansible.builtin.git:
