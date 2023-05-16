@@ -1,11 +1,34 @@
-- name: Install gui
+- name: Install gui for apt
   become: true
+  when: ansible_os_family == "Debian"
   ansible.builtin.apt:
     name:
       [
         "i3-wm",
         "i3lock",
         "i3lock-fancy",
+        "picom",
+        "feh",
+        "rofi",
+        "polybar",
+        "dunst",
+        "arandr",
+        "autorandr",
+        "xdotool",
+        "blueman",
+        "xbindkeys",
+        "redshift",
+        "xclip",
+      ]
+
+- name: Install gui for dnf
+  become: true
+  when: ansible_os_family == "RedHat"
+  ansible.builtin.dnf:
+    name:
+      [
+        "i3",
+        "i3lock",
         "picom",
         "feh",
         "rofi",

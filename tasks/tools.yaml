@@ -1,87 +1,128 @@
-- name: Add fish repo
-  become: true
-  ansible.builtin.apt_repository:
-    repo: ppa:fish-shell/release-3
-    state: present
-  when: ansible_distribution == "Ubuntu"
-
-- name: Add fish repo
-  become: true
-  when: ansible_distribution == "Debian"
+- name: Install tools on debian distros
+  when: ansible_os_family == "Debian"
   block:
-    - name: Download key
-      ansible.builtin.get_url:
-        url: https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key
-        dest: /etc/apt/trusted.gpg.d/somerepo.asc
-        mode: u=rw,g=r,o=r
-    - name: Add repo
+    - name: Add fish repo
+      become: true
       ansible.builtin.apt_repository:
-        repo: deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /
+        repo: ppa:fish-shell/release-3
         state: present
+      when: ansible_distribution == "Ubuntu"
 
-- name: Install packages through apt
-  become: true
-  ansible.builtin.apt:
-    update_cache: true
-    name:
-      [
-        "git",
-        "curl",
-        "tmux",
-        "fzf",
-        "zoxide",
-        "exa",
-        "bat",
-        "ripgrep",
-        "tldr",
-        "nodejs",
-        "npm",
-        "golang",
-        "awscli",
-        "fish",
-        "fd-find",
-        "stow",
-        "rsync",
-      ]
+    - name: Add fish repo
+      become: true
+      when: ansible_distribution == "Debian"
+      block:
+        - name: Download key
+          ansible.builtin.get_url:
+            url: https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key
+            dest: /etc/apt/trusted.gpg.d/somerepo.asc
+            mode: u=rw,g=r,o=r
+        - name: Add repo
+          ansible.builtin.apt_repository:
+            repo: deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /
+            state: present
 
-- name: Install things through snap
+    - name: Install packages through apt
+      when: ansible_os_family  == "Debian"
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        name:
+          [
+            "git",
+            "curl",
+            "tmux",
+            "fzf",
+            "zoxide",
+            "exa",
+            "bat",
+            "ripgrep",
+            "tldr",
+            "nodejs",
+            "npm",
+            "golang",
+            "awscli",
+            "fish",
+            "fd-find",
+            "stow",
+            "rsync",
+          ]
+
+    - name: Install things through snap
+      become: true
+      tags: [alacritty]
+      ansible.builtin.shell: |
+        snap install firefox
+        snap install ruby --classic
+        snap install kubectl --classic
+        snap install rustup --classic
+      when: ansible_distribution == 'Ubuntu'
+      register: result
+      changed_when: result.rc == 0
+
+    - name: Install things for debian
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        name: [kubernetes-client, ruby]
+      when: ansible_distribution == "Debian"
+
+    - name: Install rustup from source
+      ansible.builtin.get_url:
+        url: https://sh.rustup.rs
+        dest: /tmp/rustup.sh
+        mode: "+x"
+      tags: [alacritty]
+      when: ansible_distribution == "Debian"
+
+    - name: Install rustup
+      ansible.builtin.command: /tmp/rustup.sh -y
+      tags: [alacritty]
+      when: ansible_distribution == "Debian"
+      register: result
+      changed_when: result.rc == 0
+
+# For fedora etc
+- name: Install tools on dnf distros
+  block:
+    - name: Install tools through dnf
+      become: true
+      ansible.builtin.dnf:
+        [
+          "git",
+          "curl",
+          "tmux",
+          "fzf",
+          "zoxide",
+          "exa",
+          "bat",
+          "ripgrep",
+          "tldr",
+          "nodejs",
+          "npm",
+          "golang",
+          "awscli",
+          "fish",
+          "fd-find",
+          "stow",
+          "rsync",
+          "ruby",
+        ]
+# Thins we can do on all distros
+- name: Update nodejs
   become: true
-  tags: [alacritty]
   ansible.builtin.shell: |
-    snap install firefox
-    snap install ruby --classic
-    snap install kubectl --classic
-    snap install rustup --classic
-
-  when: ansible_distribution == 'Ubuntu'
-  register: result
-  changed_when: result.rc == 0
-
-- name: Install things for debian
-  become: true
-  ansible.builtin.apt:
-    update_cache: true
-    name: [kubernetes-client, ruby]
-  when: ansible_distribution == "Debian"
-
-- name: Install rustup from source
-  ansible.builtin.get_url:
-    url: https://sh.rustup.rs
-    dest: /tmp/rustup.sh
-    mode: "+x"
-  tags: [alacritty]
-  when: ansible_distribution == "Debian"
-
-- name: Install rustup
-  ansible.builtin.command: /tmp/rustup.sh -y
-  tags: [alacritty]
-  when: ansible_distribution == "Debian"
+    npm install -g n
+    n stable
+    npm install -g npm@latest
   register: result
   changed_when: result.rc == 0
 
 - name: Install the rust thingies
   tags:
     - alacritty
+  environment:
+    PATH: ~/.cargo/bin:{{ ansible_env.PATH }}
   ansible.builtin.shell: |
     rustup install stable
     rustup default stable
@@ -92,12 +133,3 @@
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
-
-- name: Update nodejs
-  become: true
-  ansible.builtin.shell: |
-    npm install -g n
-    n stable
-    npm install -g npm@latest
-  register: result
-  changed_when: result.rc == 0

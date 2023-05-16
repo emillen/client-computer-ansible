@@ -18,6 +18,8 @@
     repo: https://github.com/alacritty/alacritty.git
 
 - name: Build and install Alacritty
+  environment:
+    PATH: ~/.cargo/bin:{{ ansible_env.PATH }}
   ansible.builtin.shell: |
     cd /tmp/alacritty
     rustup override set stable
