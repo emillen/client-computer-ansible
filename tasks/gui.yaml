@@ -56,7 +56,7 @@
       register: result
       changed_when: result.rc == 0
       ansible.builtin.shell: |
-        cd /tmp/i3lock-fancy
+        cd /tmp/i3lock_fancy
         make install
 
 - name: Download greenclip
