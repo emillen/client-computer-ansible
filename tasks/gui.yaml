@@ -43,6 +43,22 @@
         "xclip",
       ]
 
+- name: Install i3lock-fancy on dnf
+  when: ansible_os_family == "RedHat"
+  block:
+    - name: Clone i3lock-fancy repo
+      ansible.builtin.git:
+        repo: https://github.com/meskarune/i3lock-fancy.git
+        dest: /tmp/i3lock_fancy
+
+    - name: Install i3lock-fancy
+      become: true
+      register: result
+      changed_when: result.rc == 0
+      ansible.builtin.shell: |
+        cd /tmp/i3lock-fancy
+        make install
+
 - name: Download greenclip
   become: true
   ansible.builtin.get_url:
