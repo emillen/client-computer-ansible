@@ -4,6 +4,7 @@
 
   pre_tasks:
     - name: Update Apt
+      when: ansible_os_family == "Debian"
       become: true
       ansible.builtin.apt:
         force_apt_get: true
