@@ -33,7 +33,7 @@
 
 - name: Build and install Alacritty
   environment:
-    PATH: ~/.cargo/bin:{{ ansible_env.PATH }}
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
   ansible.builtin.shell: |
     cd /tmp/alacritty
     rustup override set stable
