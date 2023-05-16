@@ -6,6 +6,8 @@
         "i3-wm",
         "i3lock",
         "i3lock-fancy",
+        "picom",
+        "feh",
         "rofi",
         "polybar",
         "dunst",
