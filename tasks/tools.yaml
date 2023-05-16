@@ -111,7 +111,6 @@
         dest: /tmp/rustup.sh
         mode: "+x"
       tags: [alacritty]
-      when: ansible_distribution == "Debian"
 
     - name: Install rustup
       ansible.builtin.command: /tmp/rustup.sh -y
