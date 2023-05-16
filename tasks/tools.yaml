@@ -88,26 +88,27 @@
     - name: Install tools through dnf
       become: true
       ansible.builtin.dnf:
-        [
-          "git",
-          "curl",
-          "tmux",
-          "fzf",
-          "zoxide",
-          "exa",
-          "bat",
-          "ripgrep",
-          "tldr",
-          "nodejs",
-          "npm",
-          "golang",
-          "awscli",
-          "fish",
-          "fd-find",
-          "stow",
-          "rsync",
-          "ruby",
-        ]
+        name:
+          [
+            "git",
+            "curl",
+            "tmux",
+            "fzf",
+            "zoxide",
+            "exa",
+            "bat",
+            "ripgrep",
+            "tldr",
+            "nodejs",
+            "npm",
+            "golang",
+            "awscli",
+            "fish",
+            "fd-find",
+            "stow",
+            "rsync",
+            "ruby",
+          ]
 # Thins we can do on all distros
 - name: Update nodejs
   become: true
