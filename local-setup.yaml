@@ -14,29 +14,29 @@
 
   tasks:
     - name: Install tools
-      ansible.builtin.include_tasks: tasks/tools.yaml
+      ansible.builtin.import_tasks: tasks/tools.yaml
       tags:
         - tools
         - dotfiles
 
     - name: Install gui
-      ansible.builtin.include_tasks: tasks/gui.yaml
+      ansible.builtin.import_tasks: tasks/gui.yaml
       tags:
         - gui
         - desktop
 
     - name: Install neomvim
-      ansible.builtin.include_tasks: tasks/neovim.yaml
+      ansible.builtin.import_tasks: tasks/neovim.yaml
       tags:
         - neovim
         - nvim
 
     - name: Install alacritty
-      ansible.builtin.include_tasks: tasks/alacritty.yaml
+      ansible.builtin.import_tasks: tasks/alacritty.yaml
       tags:
         - alacritty
 
     - name: Install dotfiles
-      ansible.builtin.include_tasks: tasks/my-dotfiles.yaml
+      ansible.builtin.import_tasks: tasks/my-dotfiles.yaml
       tags:
         - dotfiles
