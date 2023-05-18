@@ -1,4 +1,5 @@
-- hosts: localhost
+- name: Setup my desktop
+  hosts: localhost
   vars:
     nvim_version: stable
 
@@ -12,25 +13,30 @@
         state: present
 
   tasks:
-    - include: tasks/tools.yaml
+    - name: Install tools
+      ansible.builtin.include_tasks: tasks/tools.yaml
       tags:
         - tools
         - dotfiles
 
-    - include: tasks/gui.yaml
+    - name: Install gui
+      ansible.builtin.include_tasks: tasks/gui.yaml
       tags:
         - gui
         - desktop
 
-    - include: tasks/neovim.yaml
+    - name: Install neomvim
+      ansible.builtin.include_tasks: tasks/neovim.yaml
       tags:
         - neovim
         - nvim
 
-    - include: tasks/alacritty.yaml
+    - name: Install alacritty
+      ansible.builtin.include_tasks: tasks/alacritty.yaml
       tags:
         - alacritty
 
-    - include: tasks/my-dotfiles.yaml
+    - name: Install dotfiles
+      ansible.builtin.include_tasks: tasks/my-dotfiles.yaml
       tags:
         - dotfiles
