@@ -5,6 +5,7 @@
     name:
       [
         "i3-wm",
+        "pavucontrol",
         "i3lock",
         "i3lock-fancy",
         "picom",
@@ -30,6 +31,7 @@
         "i3",
         "i3lock",
         "picom",
+        "pavucontrol",
         "feh",
         "rofi",
         "polybar",
@@ -58,6 +60,12 @@
       ansible.builtin.shell: |
         cd /tmp/i3lock_fancy
         make install
+
+- name: Switch to pulseaudio on fedora
+  when: ansible_os_family == "RedHat"
+  register: result
+  changed_when: "'Installed' in result.stdout"
+  ansible.builtin.command: dnf swap --allowerasing pipewire-pulseaudio pulseaudio
 
 - name: Download greenclip
   become: true
