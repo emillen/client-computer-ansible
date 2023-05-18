@@ -65,6 +65,7 @@
   when: ansible_os_family == "RedHat"
   register: result
   changed_when: "'Installed' in result.stdout"
+  become: true
   ansible.builtin.command: dnf swap --allowerasing pipewire-pulseaudio pulseaudio
 
 - name: Download greenclip
