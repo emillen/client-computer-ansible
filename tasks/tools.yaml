@@ -46,6 +46,7 @@
             "fd-find",
             "stow",
             "rsync",
+            "jq",
           ]
 
     - name: Install things through snap
@@ -92,6 +93,7 @@
             "stow",
             "rsync",
             "ruby",
+            "jq",
           ]
 # Thins we can do on all distros
 - name: Update nodejs
