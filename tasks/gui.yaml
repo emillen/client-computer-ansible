@@ -53,6 +53,7 @@
         "redshift",
         "xclip",
         "flameshot",
+        "brave-browser",
       ]
 
 - name: Install gui for dnf
@@ -77,6 +78,7 @@
         "redshift",
         "xclip",
         "flameshot",
+        "brave-browser",
       ]
 
 - name: Install i3lock-fancy on dnf
