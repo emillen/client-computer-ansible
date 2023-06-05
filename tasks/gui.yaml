@@ -1,4 +1,5 @@
 - name: Install brave-browser repo on debian like os's
+  become: true
   when: ansible_os_family == "Debian"
   block:
     - name: Download key
@@ -12,6 +13,7 @@
         state: present
 
 - name: Install brave-browser on RedHat like os's
+  become: true
   when: ansible_os_family == "RedHat"
   block:
     - name: Install dn-plugins-core
