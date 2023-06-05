@@ -20,6 +20,7 @@
         "xbindkeys",
         "redshift",
         "xclip",
+        "flameshot",
       ]
 
 - name: Install gui for dnf
@@ -43,6 +44,7 @@
         "xbindkeys",
         "redshift",
         "xclip",
+        "flameshot",
       ]
 
 - name: Install i3lock-fancy on dnf
