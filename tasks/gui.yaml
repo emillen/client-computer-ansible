@@ -1,7 +1,37 @@
+- name: Install brave-browser repo on debian like os's
+  when: ansible_os_family == "Debian"
+  block:
+    - name: Download key
+      ansible.builtin.get_url:
+        url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+        dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+        mode: u=rw,g=r,o=r
+    - name: Add repo
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main
+        state: present
+
+- name: Install brave-browser on RedHat like os's
+  when: ansible_os_family == "RedHat"
+  block:
+    - name: Install dn-plugins-core
+      ansible.builtin.dnf:
+        name: dnf-plugins-core
+        state: present
+    - name: Import rpm-key
+      ansible.builtin.rpm_key:
+        key: https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+    - name: Add brave-browser rpm repo
+      ansible.builtin.get_url:
+        url: https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+        dest: /etc/yum.repos.d/brave-browser.repo
+        mode: u=rw,g=r,o=r
+
 - name: Install gui for apt
   become: true
   when: ansible_os_family == "Debian"
   ansible.builtin.apt:
+    update_cache: true
     name:
       [
         "i3-wm",
