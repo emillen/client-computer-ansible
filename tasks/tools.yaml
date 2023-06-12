@@ -48,31 +48,6 @@
             "rsync",
             "jq",
           ]
-    - name: Install packages through pacman
-      when: ansible_os_family == "Archlinux"
-      become: true
-      community.general.pacman:
-        name:
-          [
-            "git",
-            "curl",
-            "tmux",
-            "fzf",
-            "zoxide",
-            "exa",
-            "bat",
-            "ripgrep",
-            "tldr",
-            "nodejs",
-            "npm",
-            "golang",
-            "awscli",
-            "fish",
-            "fd-find",
-            "stow",
-            "rsync",
-            "jq",
-          ]
 
     - name: Install things through snap
       become: true
@@ -92,6 +67,31 @@
         name: [kubernetes-client, ruby]
       when: ansible_distribution == "Debian"
 
+- name: Install packages through pacman
+  when: ansible_os_family == "Archlinux"
+  become: true
+  community.general.pacman:
+    name:
+      [
+        "git",
+        "curl",
+        "tmux",
+        "fzf",
+        "zoxide",
+        "exa",
+        "bat",
+        "ripgrep",
+        "tldr",
+        "nodejs",
+        "npm",
+        "golang",
+        "awscli",
+        "fish",
+        "fd-find",
+        "stow",
+        "rsync",
+        "jq",
+      ]
 # For fedora etc
 - name: Install tools on dnf distros
   when: ansible_distribution == "RedHat"
