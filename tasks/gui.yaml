@@ -86,6 +86,13 @@
         "bluez",
         "bluez-utils",
       ]
+- name: Start lightdm on arch distros
+  become: true
+  when: ansible_os_family == "Archlinux"
+  ansible.builtin.systemd:
+    name: ligtdm
+    state: started
+    enabled: true
 
 - name: Install gui for dnf
   become: true
