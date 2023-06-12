@@ -83,6 +83,8 @@
         "brightnessctl",
         "lightdm",
         "lightdm-gtk-greeter",
+        "bluez",
+        "bluez-utils",
       ]
 
 - name: Install gui for dnf
