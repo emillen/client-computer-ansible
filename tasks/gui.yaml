@@ -54,6 +54,34 @@
         "xclip",
         "flameshot",
         "brave-browser",
+        "brightnessctl",
+      ]
+
+- name: Install gui for pacman
+  become: true
+  when: ansible_os_family == "Archlinux"
+  community.general.pacman:
+    name:
+      [
+        "i3-wm",
+        "pavucontrol",
+        "i3lock",
+        "i3lock-fancy",
+        "picom",
+        "feh",
+        "rofi",
+        "polybar",
+        "dunst",
+        "arandr",
+        "autorandr",
+        "xdotool",
+        "blueman",
+        "xbindkeys",
+        "redshift",
+        "xclip",
+        "flameshot",
+        "brave-browser",
+        "brightnessctl",
       ]
 
 - name: Install gui for dnf
@@ -79,6 +107,7 @@
         "xclip",
         "flameshot",
         "brave-browser",
+        "brightnessctl",
       ]
 
 - name: Install i3lock-fancy on dnf
@@ -121,7 +150,7 @@
 
     - name: Install jetbrains mono
       ansible.builtin.unarchive:
-        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/JetBrainsMono.zip
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip
         dest: ~/.fonts
         remote_src: true
 
