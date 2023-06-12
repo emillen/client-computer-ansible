@@ -49,7 +49,7 @@
             "jq",
           ]
     - name: Install packages through pacman
-      when: ansible_os_family  == "Archlinux"
+      when: ansible_os_family == "Archlinux"
       become: true
       community.general.pacman:
         name:
