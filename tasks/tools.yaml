@@ -94,6 +94,7 @@
 
 # For fedora etc
 - name: Install tools on dnf distros
+  when: ansible_distribution == "RedHat"
   block:
     - name: Install tools through dnf
       become: true
