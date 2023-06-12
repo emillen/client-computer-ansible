@@ -81,6 +81,8 @@
         "xclip",
         "flameshot",
         "brightnessctl",
+        "lightdm",
+        "lightdm-gtk-greeter",
       ]
 
 - name: Install gui for dnf
