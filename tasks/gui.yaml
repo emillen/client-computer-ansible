@@ -91,6 +91,12 @@
         "bluez",
         "bluez-utils",
       ]
+- name: Install brave on arch
+  when: ansible_os_family == "Archlinux"
+  community.general.pacman:
+    name: brave
+    executable: yay
+
 - name: Enable lightdm on arch distros
   become: true
   when: ansible_os_family == "Archlinux"
