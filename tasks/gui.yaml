@@ -94,7 +94,7 @@
 - name: Install brave on arch
   when: ansible_os_family == "Archlinux"
   community.general.pacman:
-    name: brave
+    name: brave-bin
     executable: yay
 
 - name: Enable lightdm on arch distros
