@@ -76,6 +76,7 @@
         "git",
         "curl",
         "tmux",
+        "fakeroot",
         "fzf",
         "zoxide",
         "exa",
@@ -91,6 +92,19 @@
         "rsync",
         "jq",
       ]
+
+- name: Install yay
+  when: ansible_os_family == "Archlinux"
+  block:
+    - name: Get repo
+      ansible.builtin.git:
+        repo: https://aur.archlinux.org/yay-bin.git
+        dest: ~/yay-bin
+    - name: Install
+      ansible.builtin.command:
+        cmd: makepkg -f
+        creates: /usr/bin/yay
+
 # For fedora etc
 - name: Install tools on dnf distros
   when: ansible_distribution == "RedHat"
