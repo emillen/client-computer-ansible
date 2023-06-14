@@ -55,7 +55,6 @@
         "flameshot",
         "brave-browser",
         "brightnessctl",
-        "fakeroot",
       ]
 
 - name: Install gui for pacman
@@ -66,7 +65,7 @@
       [
         "xorg-server",
         "xf86-video-amdgpu",
-        "xf86-video-intel1",
+        "xf86-video-intel",
         "xf86-video-nouveau",
         "xf86-video-vmware",
         "unzip",
