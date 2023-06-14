@@ -69,7 +69,6 @@
         "unzip",
         "i3-wm",
         "pavucontrol",
-        "i3lock",
         "picom",
         "feh",
         "rofi",
@@ -110,7 +109,6 @@
     name:
       [
         "i3",
-        "i3lock",
         "picom",
         "pavucontrol",
         "feh",
