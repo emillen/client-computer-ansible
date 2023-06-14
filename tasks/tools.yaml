@@ -104,6 +104,7 @@
       ansible.builtin.command:
         cmd: makepkg -f
         creates: /usr/bin/yay
+        chdir: ~/yay-bin
 
 # For fedora etc
 - name: Install tools on dnf distros
