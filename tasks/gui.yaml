@@ -38,8 +38,6 @@
       [
         "i3-wm",
         "pavucontrol",
-        "i3lock",
-        "i3lock-fancy",
         "picom",
         "feh",
         "rofi",
@@ -130,22 +128,6 @@
         "brave-browser",
         "brightnessctl",
       ]
-
-- name: Install i3lock-fancy on dnf
-  when: ansible_os_family == "RedHat" or ansible_os_family == "Archlinux"
-  block:
-    - name: Clone i3lock-fancy repo
-      ansible.builtin.git:
-        repo: https://github.com/meskarune/i3lock-fancy.git
-        dest: /tmp/i3lock_fancy
-
-    - name: Install i3lock-fancy
-      become: true
-      register: result
-      changed_when: result.rc == 0
-      ansible.builtin.shell: |
-        cd /tmp/i3lock_fancy
-        make install
 
 - name: Switch to pulseaudio on fedora
   when: ansible_os_family == "RedHat"
