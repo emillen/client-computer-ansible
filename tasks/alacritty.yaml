@@ -1,3 +1,8 @@
+- name: Install alacritty on Arch
+  when: ansible_os_family == "Archlinux"
+  community.general.pacman:
+    name: alacritty
+
 - name: Install dependancies on apt
   become: true
   when: ansible_os_family == "Debian"
@@ -25,31 +30,33 @@
         "libxkbcommon-devel",
         "g++",
       ]
+- name: Build alacritty from source
+  when: ansible_os_family != "Archlinux"
+  block:
+    - name: Git clone the alacritty repo
+      ansible.builtin.git:
+        dest: /tmp/alacritty
+        repo: https://github.com/alacritty/alacritty.git
 
-- name: Git clone the alacritty repo
-  ansible.builtin.git:
-    dest: /tmp/alacritty
-    repo: https://github.com/alacritty/alacritty.git
+    - name: Build and install Alacritty
+      environment:
+        PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
+      ansible.builtin.shell: |
+        cd /tmp/alacritty
+        rustup override set stable
+        rustup update stable
+        cargo build --release
+      register: command_results
+      changed_when: command_results.rc == 0
 
-- name: Build and install Alacritty
-  environment:
-    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
-  ansible.builtin.shell: |
-    cd /tmp/alacritty
-    rustup override set stable
-    rustup update stable
-    cargo build --release
-  register: command_results
-  changed_when: command_results.rc == 0
+    - name: Install Alacritty
+      become: true
+      ansible.builtin.copy:
+        src: /tmp/alacritty/target/release/alacritty
+        dest: /usr/local/bin
+        mode: "751"
 
-- name: Install Alacritty
-  become: true
-  ansible.builtin.copy:
-    src: /tmp/alacritty/target/release/alacritty
-    dest: /usr/local/bin
-    mode: "751"
-
-- name: Remove the tmp folder
-  ansible.builtin.file:
-    state: absent
-    path: /tmp/alacritty/
+    - name: Remove the tmp folder
+      ansible.builtin.file:
+        state: absent
+        path: /tmp/alacritty/
