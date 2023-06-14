@@ -102,7 +102,7 @@
         dest: ~/yay-bin
     - name: Install
       ansible.builtin.command:
-        cmd: makepkg -f
+        cmd: makepkg -fi
         creates: /usr/bin/yay
         chdir: ~/yay-bin
 
