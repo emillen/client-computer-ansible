@@ -40,20 +40,20 @@
         "libxkbcommon-devel",
         "g++",
       ]
+
 - name: Git clone the alacritty repo
   ansible.builtin.git:
     dest: /tmp/alacritty
     repo: https://github.com/alacritty/alacritty.git
 
-- name: Build and install Alacritty
+- name: Build Alacritty
   environment:
     PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
-  ansible.builtin.shell: |
-    cd /tmp/alacritty
-    rustup override set stable
-    rustup update stable
-    cargo build --release
+  ansible.builtin.command:
+    cmd: cargo build --release
+    chdir: /tmp/alacritty
   register: command_results
+
   changed_when: command_results.rc == 0
 
 - name: Install Alacritty
