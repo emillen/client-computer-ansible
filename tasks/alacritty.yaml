@@ -1,4 +1,5 @@
 - name: Install alacritty on Arch
+  become: true
   when: ansible_os_family == "Archlinux"
   community.general.pacman:
     name: alacritty
