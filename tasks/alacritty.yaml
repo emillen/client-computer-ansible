@@ -4,6 +4,7 @@
   community.general.pacman:
     name:
       [
+        "cmake",
         "freetype2",
         "fontconfig",
         "pkg-config",
